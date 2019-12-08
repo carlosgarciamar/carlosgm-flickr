@@ -6,6 +6,8 @@ import promiseMiddleware from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import Home from '../../containers/HomeContainer';
+
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import './App.css';
 
 import reducer from '../../appState';

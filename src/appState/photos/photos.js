@@ -3,23 +3,25 @@
 import { create } from 'apisauce';
 import parse from 'parse-jsonp';
 
-let baseURL = 'https://api.flickr.com';
+let baseURL = 'http://localhost:3000/photos';
+
+// https://api.flickr.com/services/rest?method=flickr.photos.getRecent&api_key={API_KEY}&format=json
 
 // Quick fix to enable local development despite API not supporting CORS for localhost
 if (typeof window !== 'undefined' && window.location.href === 'http://localhost:3000/') {
-  baseURL = `https://cors-anywhere.herokuapp.com/${baseURL}`;
+  baseURL = 'http://localhost:3000/photos';
 }
 
 export const api = create({
   baseURL,
 });
 
-export const initialState = {};
+export const initialState = [];
 
 export const RETRIEVE_PHOTOS = 'RETRIEVE_PHOTOS';
 
 export const retrievePhotos = () => {
-  const request = api.get('/services/feeds/photos_public.gne?format=json');
+  const request = api.get('');
 
   return {
     type: RETRIEVE_PHOTOS,
@@ -34,12 +36,12 @@ const photosReducer = (
   switch (action.type) {
     case RETRIEVE_PHOTOS: {
       const data = parse('jsonFlickrFeed', action.payload.data);
-      if (data) {
-        const { items } = data;
-        return items;
+      if (data && data.photos) {
+        const { photo } = data.photos;
+        return [].concat(photo);
       }
-    }
       return state;
+    }
     default: return state;
   }
 };

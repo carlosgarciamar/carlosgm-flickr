@@ -1,36 +1,51 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './Home.css';
+
+import ImageDisplay from '../ImageDisplay';
+
+import s from './Home.module.css';
 
 const Home = ({
   retrievePhotos,
+  photos,
 }) => {
   useEffect(() => {
     retrievePhotos();
-  });
+  }, []);
+
+  const loadMore = () => {
+    console.log('Load more...');
+  };
+
+  if (!photos || photos.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="Home">
-      <div className="Home-header">
-        <h2>Welcome to Razzle</h2>
+    <div className="container">
+      <div className={s.list}>
+        {
+          photos.map((photo) => (
+            <ImageDisplay
+              key={photo.id}
+              photoUrl={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
+              title={photo.title}
+              author={photo.ownername}
+              authorUrl={`https://www.flickr.com/photos/${photo.owner}/`}
+              // eslint-disable-next-line no-underscore-dangle
+              description={`${photo.description._content}`}
+              tags={photo.tags}
+            />
+          ))
+        }
       </div>
-      <ul className="Home-resources">
-        <li>
-          <a href="https://github.com/jaredpalmer/razzle">Docs</a>
-        </li>
-        <li>
-          <a href="https://github.com/jaredpalmer/razzle/issues">Issues</a>
-        </li>
-        <li>
-          <a href="https://palmer.chat">Community Slack</a>
-        </li>
-      </ul>
     </div>
   );
 };
 
 Home.propTypes = {
   retrievePhotos: PropTypes.func.isRequired,
+  photos: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Home;

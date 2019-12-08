@@ -4,6 +4,8 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import App from './components/App/App';
 
+import photos from './constants/flickrapi.json';
+
 // eslint-disable-next-line import/no-dynamic-require
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -11,6 +13,9 @@ const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+  .get('/photos', (req, res) => {
+    res.json(`jsonFlickrFeed(${JSON.stringify(photos)})`);
+  })
   .get('/*', (req, res) => {
     const context = {};
     const markup = renderToString(

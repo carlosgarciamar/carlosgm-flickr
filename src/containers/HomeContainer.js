@@ -7,8 +7,12 @@ import {
 
 import Home from '../components/Home';
 
+const mapStateToProps = (state) => ({
+  photos: state.photos,
+});
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   retrievePhotos,
 }, dispatch);
 
-export default connect(undefined, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
