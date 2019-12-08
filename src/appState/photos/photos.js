@@ -42,7 +42,7 @@ const photosReducer = (
       const data = parse('jsonFlickrApi', action.payload.data);
       if (data && data.photos) {
         const { photo } = data.photos;
-        return [].concat(photo);
+        return [].concat(state).concat(photo);
       }
       return state;
     }

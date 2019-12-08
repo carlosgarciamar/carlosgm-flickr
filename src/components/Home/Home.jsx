@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import ImageDisplay from '../ImageDisplay';
+import PhotoLoader from '../../containers/PhotoLoaderContainer';
 
 import s from './Home.module.css';
 
@@ -35,6 +36,7 @@ const Home = ({
           ))
         }
       </div>
+      <PhotoLoader />
     </div>
   );
 };

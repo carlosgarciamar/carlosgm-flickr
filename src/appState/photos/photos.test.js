@@ -24,6 +24,20 @@ describe('appState > photos', () => {
       };
       expect(reducer(initialState, testAction)).toEqual(testAction.payload.data.photos.photo);
     });
+
+    it('add the photos twice if called twice', () => {
+      const testAction = {
+        type: RETRIEVE_PHOTOS,
+        payload: {
+          data: payloads.getImages,
+        },
+      };
+      const newState = reducer(initialState, testAction);
+      const expectedState = []
+        .concat(testAction.payload.data.photos.photo)
+        .concat(testAction.payload.data.photos.photo);
+      expect(reducer(newState, testAction)).toEqual(expectedState);
+    });
   });
 
   describe('async actions', () => {
@@ -38,7 +52,7 @@ describe('appState > photos', () => {
       store = mockStore(initialState);
     });
 
-    it('should be able to create a photo to retrieve the photos from the API', () => {
+    it('should be able to create an action to retrieve the photos from the API', () => {
       const expectedAction = {
         type: RETRIEVE_PHOTOS,
         payload: {
