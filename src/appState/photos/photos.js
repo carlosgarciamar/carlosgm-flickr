@@ -7,8 +7,8 @@ let baseURL = 'http://localhost:3000/photos';
 
 // https://api.flickr.com/services/rest?method=flickr.photos.getRecent&api_key={API_KEY}&format=json
 
-// Quick fix to enable local development despite API not supporting CORS for localhost
-if (typeof window !== 'undefined' && window.location.href === 'http://localhost:3000/') {
+// Quick fix to enable local development
+if (typeof window !== 'undefined' || window.location.href === 'http://localhost:3000/') {
   baseURL = 'http://localhost:3000/photos';
 }
 

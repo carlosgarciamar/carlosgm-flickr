@@ -22,7 +22,7 @@ describe('appState > photos', () => {
           data: payloads.getImages,
         },
       };
-      expect(reducer(initialState, testAction)).toEqual(testAction.payload.data.items);
+      expect(reducer(initialState, testAction)).toEqual(testAction.payload.data.photos.photo);
     });
   });
 
@@ -47,7 +47,7 @@ describe('appState > photos', () => {
       };
 
       mock
-        .onGet('https://api.flickr.com/services/feeds/photos_public.gne?format=json')
+        .onGet('')
         .replyOnce(200, expectedAction.payload.data);
 
       return store
