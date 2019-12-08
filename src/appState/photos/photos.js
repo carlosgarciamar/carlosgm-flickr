@@ -1,6 +1,14 @@
-import { create } from 'apisauce';
+/* global window */
 
-const baseURL = 'https://api.flickr.com';
+import { create } from 'apisauce';
+import parse from 'parse-jsonp';
+
+let baseURL = 'https://api.flickr.com';
+
+// Quick fix to enable local development despite API not supporting CORS for localhost
+if (typeof window !== 'undefined' && window.location.href === 'http://localhost:3000/') {
+  baseURL = `https://cors-anywhere.herokuapp.com/${baseURL}`;
+}
 
 export const api = create({
   baseURL,
@@ -24,6 +32,14 @@ const photosReducer = (
   action,
 ) => {
   switch (action.type) {
+    case RETRIEVE_PHOTOS: {
+      const data = parse('jsonFlickrFeed', action.payload.data);
+      if (data) {
+        const { items } = data;
+        return items;
+      }
+    }
+      return state;
     default: return state;
   }
 };

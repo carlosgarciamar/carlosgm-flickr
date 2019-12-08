@@ -4,15 +4,27 @@ import configureMockStore from 'redux-mock-store';
 
 import payloads from '../../constants/MockResponses';
 
-import {
+import reducer, {
   initialState,
   retrievePhotos,
   RETRIEVE_PHOTOS,
   api,
 } from '.';
 
+jest.mock('parse-jsonp', () => (hook, string) => string);
+
 describe('appState > photos', () => {
-  describe('reducer', () => {});
+  describe('reducer', () => {
+    it('populates the state with the items in the payload from the action RETRIEVE_PHOTOS', () => {
+      const testAction = {
+        type: RETRIEVE_PHOTOS,
+        payload: {
+          data: payloads.getImages,
+        },
+      };
+      expect(reducer(initialState, testAction)).toEqual(testAction.payload.data.items);
+    });
+  });
 
   describe('async actions', () => {
     let mock;
