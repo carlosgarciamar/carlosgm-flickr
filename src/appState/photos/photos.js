@@ -6,7 +6,7 @@ import parse from 'parse-jsonp';
 let FLICKR_API_KEY = '';
 
 if (process && process.env) {
-  FLICKR_API_KEY = process.env.FLICKR_API_KEY;
+  FLICKR_API_KEY = process.env.RAZZLE_FLICKR_API_KEY;
 }
 
 let baseURL = `https://api.flickr.com/services/rest?method=flickr.photos.getRecent&api_key=${FLICKR_API_KEY}&format=json&extras=description,tags,owner_name`;
