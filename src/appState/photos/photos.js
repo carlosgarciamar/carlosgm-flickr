@@ -3,12 +3,16 @@
 import { create } from 'apisauce';
 import parse from 'parse-jsonp';
 
-let baseURL = 'http://localhost:3000/photos';
+let FLICKR_API_KEY = '';
 
-// https://api.flickr.com/services/rest?method=flickr.photos.getRecent&api_key={API_KEY}&format=json
+if (process && process.env) {
+  FLICKR_API_KEY = process.env.FLICKR_API_KEY;
+}
+
+let baseURL = `https://api.flickr.com/services/rest?method=flickr.photos.getRecent&api_key=${FLICKR_API_KEY}&format=json&extras=description,tags,owner_name`;
 
 // Quick fix to enable local development
-if (typeof window !== 'undefined' || window.location.href === 'http://localhost:3000/') {
+if (typeof window !== 'undefined' && window.location.href === 'http://localhost:3000/') {
   baseURL = 'http://localhost:3000/photos';
 }
 
