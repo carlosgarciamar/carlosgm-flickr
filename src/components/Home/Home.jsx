@@ -13,10 +13,6 @@ const Home = ({
     retrievePhotos();
   }, []);
 
-  const loadMore = () => {
-    console.log('Load more...');
-  };
-
   if (!photos || photos.length === 0) {
     return null;
   }

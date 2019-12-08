@@ -9,6 +9,7 @@ describe('<Home />', () => {
   const retrievePhotos = jest.fn();
   const props = {
     retrievePhotos,
+    photos: [],
   };
   it('should call retrievePhotos once on mount', () => {
     jest.resetAllMocks();

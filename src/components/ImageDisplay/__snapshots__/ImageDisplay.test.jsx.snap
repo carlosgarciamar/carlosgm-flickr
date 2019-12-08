@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImageDisplay /> should match its snapshot 1`] = `
+<div
+  className="wrapper"
+>
+  <img
+    alt="Photo title"
+    className="image"
+    src="http://www.example.com/photo-url"
+  />
+  <div>
+    <a
+      href="http://www.example.com/photo-url"
+      target="__blank"
+    >
+      Photo title
+    </a>
+     by 
+    <a
+      href="http://www.example.com/author-url"
+      target="__blank"
+    >
+      author
+    </a>
+  </div>
+  <div>
+    Lorem ipsum
+  </div>
+  <div>
+    tag1 tag2
+  </div>
+</div>
+`;
