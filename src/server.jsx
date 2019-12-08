@@ -14,7 +14,7 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/photos', (req, res) => {
-    res.json(`jsonFlickrFeed(${JSON.stringify(photos)})`);
+    res.json(`jsonFlickrApi(${JSON.stringify(photos)})`);
   })
   .get('/*', (req, res) => {
     const context = {};

@@ -39,7 +39,7 @@ const photosReducer = (
 ) => {
   switch (action.type) {
     case RETRIEVE_PHOTOS: {
-      const data = parse('jsonFlickrFeed', action.payload.data);
+      const data = parse('jsonFlickrApi', action.payload.data);
       if (data && data.photos) {
         const { photo } = data.photos;
         return [].concat(photo);
