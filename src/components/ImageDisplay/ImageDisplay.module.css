@@ -7,8 +7,30 @@
     margin: 5px;
     overflow: hidden;
     max-height: 500px;
+    background: #fefefe;
 }
 
 .image {
     width: 100%;
+}
+
+.textWrapper {
+    overflow: hidden;
+    margin: 7px 0;
+}
+
+.description {
+    font-size: 0.8rem;
+    margin: 7px 0 0;
+}
+
+.tags {
+    font-size: 0.8rem;
+    margin: 7px 0;
+}
+
+@media screen and (max-width: 467px) {
+    .wrapper {
+        width: 100%;
+    }
 }

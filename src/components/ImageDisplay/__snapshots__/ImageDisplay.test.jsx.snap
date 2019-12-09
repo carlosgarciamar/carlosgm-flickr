@@ -9,7 +9,9 @@ exports[`<ImageDisplay /> should match its snapshot 1`] = `
     className="image"
     src="http://www.example.com/photo-url"
   />
-  <div>
+  <div
+    className="textWrapper"
+  >
     <a
       href="http://www.example.com/photo-url"
       target="__blank"
@@ -23,12 +25,16 @@ exports[`<ImageDisplay /> should match its snapshot 1`] = `
     >
       author
     </a>
-  </div>
-  <div>
-    Lorem ipsum
-  </div>
-  <div>
-    tag1 tag2
+    <div
+      className="description"
+    >
+      Lorem ipsum
+    </div>
+    <div
+      className="tags"
+    >
+      tag1, tag2
+    </div>
   </div>
 </div>
 `;

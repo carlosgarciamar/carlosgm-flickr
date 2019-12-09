@@ -13,25 +13,25 @@ const ImageDisplay = ({
 }) => (
   <div className={s.wrapper}>
     <img src={photoUrl} alt={title} className={s.image} />
-    <div>
+    <div className={s.textWrapper}>
       <a href={photoUrl} target="__blank">{title}</a>
       &nbsp;by&nbsp;
       <a href={authorUrl} target="__blank">{author}</a>
-    </div>
-    {
+      {
       description
         ? (
-          <div>{description}</div>
+          <div className={s.description}>{description}</div>
         )
         : null
-    }
-    {
-      tags
-        ? (
-          <div>{tags}</div>
-        )
-        : null
-    }
+      }
+      {
+        tags
+          ? (
+            <div className={s.tags}>{tags.split(' ').join(', ')}</div>
+          )
+          : null
+      }
+    </div>
   </div>
 );
 
