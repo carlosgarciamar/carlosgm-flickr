@@ -2,3 +2,18 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.inputContainer {
+  margin: 10px 0 7px 6px;
+}
+
+.input {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 6px 4px;
+}
+
+.label {
+  font-size: 0.85em;
+  margin: 0 10px 0 0;
+}

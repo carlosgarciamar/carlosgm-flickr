@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import http from 'http';
 
 let app = require('./server').default;

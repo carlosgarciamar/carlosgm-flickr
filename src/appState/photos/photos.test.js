@@ -9,6 +9,8 @@ import reducer, {
   retrievePhotos,
   RETRIEVE_PHOTOS,
   api,
+  FILTER_PHOTOS,
+  filterPhotos,
 } from '.';
 
 jest.mock('parse-jsonp', () => (hook, string) => string);
@@ -22,7 +24,11 @@ describe('appState > photos', () => {
           data: payloads.getImages,
         },
       };
-      expect(reducer(initialState, testAction)).toEqual(testAction.payload.data.photos.photo);
+      const expectedState = {
+        retrievedPhotos: [].concat(testAction.payload.data.photos.photo),
+        filteredPhotos: [],
+      };
+      expect(reducer(initialState, testAction)).toEqual(expectedState);
     });
 
     it('add the photos twice if called twice', () => {
@@ -33,10 +39,49 @@ describe('appState > photos', () => {
         },
       };
       const newState = reducer(initialState, testAction);
-      const expectedState = []
-        .concat(testAction.payload.data.photos.photo)
-        .concat(testAction.payload.data.photos.photo);
+      const expectedState = Object.assign(initialState, {
+        retrievedPhotos: []
+          .concat(testAction.payload.data.photos.photo)
+          .concat(testAction.payload.data.photos.photo),
+      });
       expect(reducer(newState, testAction)).toEqual(expectedState);
+    });
+
+    it('filters the photos when receiving the FILTER_PHOTOS action', () => {
+      const searchTerm = 'london';
+      const testAction = {
+        type: FILTER_PHOTOS,
+        searchTerm,
+      };
+      const newInitialState = Object.assign(
+        initialState,
+        { retrievedPhotos: [].concat(payloads.getImages.photos.photo) },
+      );
+      expect(reducer(newInitialState, testAction).filteredPhotos).toHaveLength(2);
+    });
+
+    xit('resets the filter when receiving an empty searchTerm in the FILTER_PHOTOS action', () => {
+      const searchTerm = '';
+      const testAction = {
+        type: FILTER_PHOTOS,
+        searchTerm,
+      };
+      const newInitialState = Object.assign(
+        initialState,
+        { retrievedPhotos: [].concat(payloads.getImages.photos.photo) },
+      );
+      expect(reducer(newInitialState, testAction).filteredPhotos).toHaveLength(0);
+    });
+  });
+
+  describe('sync actions', () => {
+    it('should be able to create an action to filter the photos', () => {
+      const searchTerm = 'london';
+      const expectedAction = {
+        type: FILTER_PHOTOS,
+        searchTerm,
+      };
+      expect(filterPhotos(searchTerm)).toEqual(expectedAction);
     });
   });
 

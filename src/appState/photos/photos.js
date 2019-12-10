@@ -20,9 +20,13 @@ export const api = create({
   baseURL,
 });
 
-export const initialState = [];
+export const initialState = {
+  retrievedPhotos: [],
+  filteredPhotos: [],
+};
 
 export const RETRIEVE_PHOTOS = 'RETRIEVE_PHOTOS';
+export const FILTER_PHOTOS = 'FILTER_PHOTOS';
 
 export const retrievePhotos = () => {
   const request = api.get('');
@@ -33,6 +37,11 @@ export const retrievePhotos = () => {
   };
 };
 
+export const filterPhotos = (searchTerm) => ({
+  type: FILTER_PHOTOS,
+  searchTerm,
+});
+
 const photosReducer = (
   state = initialState,
   action,
@@ -42,9 +51,36 @@ const photosReducer = (
       const data = parse('jsonFlickrApi', action.payload.data);
       if (data && data.photos) {
         const { photo } = data.photos;
-        return [].concat(state).concat(photo);
+        return {
+          retrievedPhotos: [].concat(state.retrievedPhotos).concat(photo),
+          filteredPhotos: state.filteredPhotos,
+        };
       }
       return state;
+    }
+    case FILTER_PHOTOS: {
+      if (action.searchTerm && action.searchTerm.length > 0) {
+        const searchTermLowered = action.searchTerm.toLowerCase();
+        const filteredPhotos = state.retrievedPhotos.reduce((pv, cv) => {
+          const { title, ownername, tags } = cv;
+          if (
+            title.toLowerCase().indexOf(searchTermLowered) > -1
+            || ownername.toLowerCase().indexOf(searchTermLowered) > -1
+            || tags.toLowerCase().indexOf(searchTermLowered) > -1
+          ) {
+            return pv.concat([cv]);
+          }
+          return pv;
+        }, []);
+        return {
+          retrievedPhotos: state.retrievedPhotos,
+          filteredPhotos,
+        };
+      }
+      return {
+        retrievedPhotos: state.retrievedPhotos,
+        filteredPhotos: [],
+      };
     }
     default: return state;
   }
