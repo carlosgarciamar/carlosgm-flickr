@@ -27,6 +27,8 @@ const Home = ({
     ? filteredPhotos
     : photos;
 
+  const shouldHideLoader = filteredPhotos && filteredPhotos.length > 0;
+
   return (
     <div className="container">
       <div className={s.inputContainer}>
@@ -60,7 +62,7 @@ const Home = ({
           ))
         }
       </div>
-      <PhotoLoader />
+      { shouldHideLoader ? null : <PhotoLoader /> }
     </div>
   );
 };

@@ -50,7 +50,7 @@ Wrappers that expose the `appState` to the `components`. These should be complet
 Not in any particular order
 
 - ~~Add search functionality~~
-- Hide "PhotoLoader" component when searching
+- ~~Hide "PhotoLoader" component when searching~~
 - Add pagination to API call to ensure that the photos retrieved are not duplicated
 - Enable taking search as an url parameter
 - Abstract search as its own component

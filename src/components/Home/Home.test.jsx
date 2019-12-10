@@ -4,6 +4,7 @@ import React from 'react';
 import { act, create } from 'react-test-renderer';
 
 import ImageDisplay from '../ImageDisplay';
+import PhotoLoader from '../../containers/PhotoLoaderContainer';
 import Home from '.';
 
 jest.mock('../ImageDisplay', () => () => 'ImageDisplay');
@@ -81,7 +82,7 @@ describe('<Home />', () => {
     expect(input.props.value).toBe(value);
   });
 
-  it('should render filteredPhotos rather than photos if both available', () => {
+  it('should render filteredPhotos rather than photos and hide PhotoLoader if both available', () => {
     jest.resetAllMocks();
     let element;
     const photos = [
@@ -109,5 +110,6 @@ describe('<Home />', () => {
     });
     const { root } = element;
     expect(root.findAllByType(ImageDisplay)).toHaveLength(1);
+    expect(root.findAllByType(PhotoLoader)).toHaveLength(0);
   });
 });
